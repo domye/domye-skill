@@ -14,8 +14,6 @@
 
 本仓库按内容刷新方式同步上游，不同步上游 Git 历史或仓库管理状态。维护规则见 [`.skills/translate-skill/SKILL.md`](./.skills/translate-skill/SKILL.md)。
 
-本仓库的最近一次同步翻译由 Claude（Anthropic）执行，并由仓库维护者通过 PR 纳入 `main`。翻译策略是 **skill-guided content localization**：把上游 `mattpocock/skills` 当作英文内容来源，只翻译自然语言说明，保留目录名、skill name、frontmatter key、命令、代码块、路径、URL、package/tool/API identifiers 和行为关键 labels。用户可见的安装路径统一保持为 `vinvcn/mattpocock-skills-zh-CN`。
-
 ## 30 秒安装
 
 ```bash
@@ -24,12 +22,13 @@ npx skills@latest add vinvcn/mattpocock-skills-zh-CN
 
 选择你想安装的 skills，以及要安装到哪些 coding agents。首次安装时请确保选择 [`/setup-matt-pocock-skills`](./skills/engineering/setup-matt-pocock-skills/SKILL.md)，然后在 agent 中运行它来完成 issue tracker、labels 和 docs 目录配置。
 
-或者在 Claude Code 中运行：
+或者通过 Pi 的 skill 链接脚本安装：
 
+```bash
+bash scripts/link-skills.sh
 ```
-/plugin marketplace add vinvcn/mattpocock-skills-zh-CN
-/plugin install mattpocock-skills@mattpocock
-```
+
+这会将所有 skills 软链接到 `~/.pi/agent/skills/`，Pi 启动时自动发现。
 
 [![skills.sh](https://skills.sh/b/vinvcn/mattpocock-skills-zh-CN)](https://skills.sh/vinvcn/mattpocock-skills-zh-CN)
 
@@ -72,36 +71,9 @@ npx skills@latest add vinvcn/mattpocock-skills-zh-CN
 
 4. 完成后即可开始使用。
 
-### 作为 Claude Code plugin 安装
-
-如果你更喜欢无需手动维护的即装即用方式，这些 skills 也以原生 [Claude Code plugin](https://code.claude.com/docs/en/plugins) 发布。与把可编辑文件复制进 repo 不同，plugin 会把整套 skills 安装为受管理的 bundle；新版本发布后可以统一更新。
-
-在 Claude Code 中运行：
-
-```
-/plugin marketplace add vinvcn/mattpocock-skills-zh-CN
-/plugin install mattpocock-skills@mattpocock
-```
-
-或在 shell 中运行：
-
-```bash
-claude plugin marketplace add vinvcn/mattpocock-skills-zh-CN
-claude plugin install mattpocock-skills@mattpocock
-```
-
-然后像上面的 quickstart 一样，在每个 repo 中运行一次 `/setup-matt-pocock-skills`。
-
-两种安装方式代表两种使用取向，只选其一——两个都装会让每个 skill 被安装两次：
-
-- **[skills.sh](https://skills.sh/vinvcn/mattpocock-skills-zh-CN)** 会把 skills 复制进项目，方便你修改、定制，把它们变成自己的东西。
-- **Plugin** 把它们作为受管理的只读 bundle 安装，随新版本发布统一更新——是订阅而不是 fork，适合只想直接使用并持续跟进更新的用户。
-
-> 使用 Codex 或其他 agent？[skills.sh installer](https://skills.sh/vinvcn/mattpocock-skills-zh-CN) 已经可以把这些 skills 安装到 Codex 和其他兼容 Agent Skills 的 harnesses；目前尚未提供原生 Codex plugin。
-
 ### 为什么这些 Skills 存在
 
-我创建这些 skills，是为了解决我在 Claude Code、Codex 和其他 coding agents 中反复看到的常见失败模式。
+我创建这些 skills，是为了解决我在 Pi agent 和其他 coding agents 中反复看到的常见失败模式。
 
 #### #1: Agent 没有做我想要的东西
 
@@ -159,7 +131,7 @@ AI 时代也是一样。你和 agent 之间存在沟通缺口。修复方式是�
 
 #### #3: 代码跑不起来
 
-> "Always take small, deliberate steps. The rate of feedback is your speed limit. Never take on a task that’s too big."
+> "Always take small, deliberate steps. The rate of feedback is your speed limit. Never take on a task that's too big."
 >
 > David Thomas & Andrew Hunt, [The Pragmatic Programmer](https://www.amazon.co.uk/Pragmatic-Programmer-Anniversary-Journey-Mastery/dp/B0833F1T3V)
 
@@ -221,7 +193,7 @@ AI 时代也是一样。你和 agent 之间存在沟通缺口。修复方式是�
 
 **Model-invoked**
 
-- **[prototype](./skills/engineering/prototype/SKILL.md)** - 构建 throwaway prototype 来回答一个设计问题——state/logic 问题产出一个可分享的单一 HTML 文件，或产出几个可从同一路由切换的 radically different UI 变体。
+- **[prototype](./skills/engineering/prototype/SKILL.md)** - 构建 throwaway prototype 来回答一个 design 问题——state/logic 问题产出一个可分享的单一 HTML 文件，或产出几个可从同一路由切换的 radically different UI 变体。
 - **[diagnosing-bugs](./skills/engineering/diagnosing-bugs/SKILL.md)** - 面向棘手 bug 和性能回退的纪律化诊断循环：构建一个会对这个 bug 变红的 feedback loop → minimise → hypothesise → instrument → fix → regression-test。
 - **[research](./skills/engineering/research/SKILL.md)** - 对照 high-trust primary sources 调研问题，并把带引用的 findings 保存为 Markdown 文件。
 - **[tdd](./skills/engineering/tdd/SKILL.md)** - 使用 red-green-refactor 循环做 test-driven development；一次一个 vertical slice 地构建功能或修复 bug。
@@ -240,13 +212,13 @@ AI 时代也是一样。你和 agent 之间存在沟通缺口。修复方式是�
 - **[grill-me](./skills/productivity/grill-me/SKILL.md)** - 围绕计划或设计持续追问，直到 design tree 的每个分支都被解决。
 - **[handoff](./skills/productivity/handoff/SKILL.md)** - 把当前对话压缩成 handoff document，让另一个 agent 可以继续。
 - **[teach](./skills/productivity/teach/SKILL.md)** - 使用当前目录作为 stateful teaching workspace，在多个 sessions 中教用户一个新 skill 或概念。
-- **[to-questionnaire](./skills/productivity/to-questionnaire/SKILL.md)** - 把一个你自己答不了的 decision 变成一份 Markdown questionnaire，交给唯一能回答它的人——异步填写，或在一次会议里一起完成。它追问的是“发送”本身（发给谁、你想拿回什么），而不是主题。
+- **[to-questionnaire](./skills/productivity/to-questionnaire/SKILL.md)** - 把一个你自己答不了的 decision 变成一份 Markdown questionnaire，交给唯一能回答它的人——异步填写，或在一次会议里一起完成。它追问的是"发送"本身（发给谁、你想拿回什么），而不是主题。
 - **[wait-what](./skills/productivity/wait-what/SKILL.md)** - 某条消息没讲明白的瞬间就发它。agent 会补上你缺的 context，用平实的语言重新表述，并使用你 `CONTEXT.md` 里的词汇。
 
 **Model-invoked**
 
 - **[grilling](./skills/productivity/grilling/SKILL.md)** - 围绕计划、decision 或 idea 持续访谈用户，直到 design tree 的每个分支都被解决。它是 `grill-me`、`grill-with-docs`、`triage`、`wayfinder` 和 `improve-codebase-architecture` 背后的可复用访谈 primitive。
-- **[writing-for-agents](./skills/productivity/writing-for-agents/SKILL.md)** - 为 agents 编写文档：skills、AGENTS.md/CLAUDE.md，以及任何 agent 通过 pointer 到达的文档。
+- **[writing-for-agents](./skills/productivity/writing-for-agents/SKILL.md)** - 为 agents 编写文档：skills、AGENTS.md，以及任何 agent 通过 pointer 到达的文档。
 
 #### Misc
 
@@ -258,7 +230,6 @@ AI 时代也是一样。你和 agent 之间存在沟通缺口。修复方式是�
 
 **Model-invoked**
 
-- **[git-guardrails-claude-code](./skills/misc/git-guardrails-claude-code/SKILL.md)** - 设置 Claude Code hooks，在危险 git 命令（push、reset --hard、clean 等）执行前阻止它们。
 - **[migrate-to-shoehorn](./skills/misc/migrate-to-shoehorn/SKILL.md)** - 将测试文件中的 `as` 类型断言迁移到 @total-typescript/shoehorn。
 - **[scaffold-exercises](./skills/misc/scaffold-exercises/SKILL.md)** - 创建包含 sections、problems、solutions 和 explainers 的练习目录结构。
 - **[setup-pre-commit](./skills/misc/setup-pre-commit/SKILL.md)** - 设置 Husky pre-commit hooks，集成 lint-staged、Prettier、type checking 和 tests。

@@ -1,6 +1,6 @@
 # Matt Pocock Skills
 
-由 Claude Code 加载的一组 agent skills（slash commands 和 behaviors）。Skills 按 bucket 组织，并由 `/setup-matt-pocock-skills` 生成的每仓库配置消费。
+由 Pi agent 加载的一组 agent skills（slash commands 和 behaviors）。Skills 按 bucket 组织，并由 `/setup-matt-pocock-skills` 生成的每仓库配置消费。
 
 ## Language
 
@@ -26,5 +26,5 @@ _Avoid_: ticket（仅在引用外部系统称其为 ticket，或指下面的 **D
 
 ## Flagged ambiguities
 
-- “backlog” 过去同时表示托管 issues 的*工具*以及工具里的*工作集合*；已解决：工具称为 **Issue tracker**，“backlog” 不再作为 domain term 使用。
-- “backlog backend” / “backlog manager” 已解决：统一收敛为 **Issue tracker**。
+- "backlog" 过去同时表示托管 issues 的*工具*以及工具里的*工作集合*；已解决：工具称为 **Issue tracker**，"backlog" 不再作为 domain term 使用。
+- "backlog backend" / "backlog manager" 已解决：统一收敛为 **Issue tracker**。

@@ -1,9 +1,9 @@
 ---
 name: writing-for-agents
-description: 为 agent 编写文档。适用于创建或编辑 skills，或修改 AGENTS.md 或 CLAUDE.md 时。
+description: 为 agent 编写文档。适用于创建或编辑 skills，或修改 AGENTS.md 时。
 ---
 
-为 agent 消费的任何文档提供参考——一个 skill、一个 `AGENTS.md` / `CLAUDE.md`、一个经 pointer 触达的文档。包装方式不同；写作本身并无不同：同样的杠杆让每一份都变得可预测——agent 每次运行都采取相同的 _process_，而不是产出相同的 output。
+为 agent 消费的任何文档提供参考——一个 skill、一个 `AGENTS.md`、一个经 pointer 触达的文档。包装方式不同；写作本身并无不同：同样的杠杆让每一份都变得可预测——agent 每次运行都采取相同的 _process_，而不是产出相同的 output。
 
 当你写的文档是 skill 时，阅读 [`SKILL-MECHANICS.md`](SKILL-MECHANICS.md) 了解 frontmatter、invocation 选择以及 router skills。
 

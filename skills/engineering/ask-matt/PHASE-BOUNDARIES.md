@@ -26,7 +26,7 @@
 
 **3. 你需要 hand off 吗？** `/handoff` 很窄。只有以下情况才需要它：
 
-- 换到 **new harness**（Claude -> Codex），
+- 换到 **new working directory** 或 repo，
 - 移到 **new directory** 或 repo，
 - 把工作交给 **colleague**，
 - 或者在 **phase 中途** 分叉一个 side task，而不打乱你正在做的事。

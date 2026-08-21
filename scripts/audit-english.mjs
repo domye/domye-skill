@@ -18,7 +18,7 @@ const allowed = [
   "CD",
   "GitHub",
   "Claude",
-  "Codex",
+  "Codex", // legacy reference, may appear in docs
   "Obsidian",
   "Husky",
   "Prettier",
