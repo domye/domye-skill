@@ -7,7 +7,7 @@ set -euo pipefail
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
 DEST="$HOME/.pi/agent/skills"
 
-# If ~/.claude/skills is a symlink that resolves into this repo, we'd end up
+# If ~/.pi/agent/skills is a symlink that resolves into this repo, we'd end up
 # writing the per-skill symlinks back into the repo's own skills/ tree. Detect
 # and bail out instead of polluting the working copy.
 if [ -L "$DEST" ]; then

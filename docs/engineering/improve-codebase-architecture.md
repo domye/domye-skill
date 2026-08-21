@@ -79,9 +79,9 @@ report 从 CDN 加载 Tailwind 和 Mermaid，所以打开它时需要网络访�
 
 很少，而你进去之前就该知道这一点。这个 skill 是被构建来输出 findings 的，所以这种框架会把它推向产出候选项，而不是得出"没有什么不对"的结论。强度徽章就是防线——一份所有条目都是 `Speculative` 的 report，就是这个 skill 以它唯一懂得的方式告诉你：它什么都没找到。
 
-**它在 Codex 或其他 harness 里能工作吗？**
+**它在 Pi 中能工作吗？**
 
-部分可以。探索步骤直接指名 Claude Code 的 `Agent` 工具并带 `subagent_type=Explore`，所以一个没有该工具的 [harness](https://www.aihero.dev/ai-coding-dictionary/harness) 可能会跳过并行探索，而不是用自己的替代。skill 仍然会运行；只是扫描没那么彻底。一个 harness-neutral 的重写被提议过，但尚未合并。
+部分可以。探索步骤依赖 sub-agent 能力。Pi 没有内置 sub-agent tool，所以并行探索阶段可能不会自动触发。skill 仍然会运行；只是扫描没那么彻底。如果你安装了 Pi 的 sub-agent extension，可以获得更完整的扫描。
 
 **我到底该怎么在 TypeScript 里实现 deep modules？**
 

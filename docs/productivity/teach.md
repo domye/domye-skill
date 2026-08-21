@@ -55,7 +55,7 @@
 
 ## Common questions
 
-**它把文件放哪里了？我的最后落在了 `~/.claude/skills`。**
+**它把文件放哪里了？我的最后落在了 skill 安装目录里。**
 一个真实、未修复的 bug（[#377](https://github.com/mattpocock/skills/issues/377)）。`SKILL.md` 同时为两个不同的根使用 `./`：`./MISSION-FORMAT.md` 及其兄弟文件确实紧挨着已安装 skill 中的 `SKILL.md`，而 `./lessons/`、`./reference/`、`./learning-records/` 和 `./assets/` 本意是在你的目录里。一个针对 skill 的安装目录解析第一类的 agent，会继续在那里解析第二类，并把你的课程写进 skill 文件夹。在它之上构建之前，先检查第一节课落在了哪里，并在开始时显式地说出目录名，而不是依赖「当前目录」被理解。
 
 **我是留在同一个 session 里，还是每节课开一个新的？**
@@ -77,7 +77,7 @@
 不，而且非代码的用途占了记录的大头：韩语、日语的正式语体、钢琴、吉他、桌游设计、OpenSCAD、电影剧情、Azure 和 CCNA 认证、大学考试，以及八岁和十岁的孩子拿到关于密室逃脱和火蠑螈的可打印书。这个 skill 里没有任何编程特有的东西——mission、resources、zone of proximal development 和操练在任何领域都以同样的方式运作。在代码范围内，被报告的最强用途不是从零学一门语言，而是在一个不熟悉的 codebase 或新手团队的 stack 里找到方向。
 
 **我应该用哪个模型运行它？**
-没有标准答案，而且被报告的差异很大。更高的 [reasoning effort](https://www.aihero.dev/ai-coding-dictionary/effort) 被报告为能产出比 medium 设置明显更好的课程。一位用户用 Codex 通过 Copilot CLI 运行同一个 skill，得到一个 30 行的 HTML 卡片，而 Claude Code 则产出一份完整的课程。它在 Claude Cowork 中无需修改即可运行，取决于你的组织是否允许在那里添加 skills。如果课程出来很单薄，在重写你的 prompt 之前，先换模型、[harness](https://www.aihero.dev/ai-coding-dictionary/harness) 或 effort。
+没有标准答案，而且被报告的差异很大。更高的 [reasoning effort](https://www.aihero.dev/ai-coding-dictionary/effort) 被报告为能产出比 medium 设置明显更好的课程。如果课程出来很单薄，在重写你的 prompt 之前，先换模型或 effort。
 
 ## It's working if
 

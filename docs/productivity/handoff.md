@@ -12,7 +12,7 @@
 
 | 情况 | 为什么用文件 |
 | --- | --- |
-| 切换 harness——Claude → Codex | 新的 harness 看不到旧的 [context](https://www.aihero.dev/ai-coding-dictionary/context) |
+| 切换到新的 Pi session | 新的 session 看不到旧的 [context](https://www.aihero.dev/ai-coding-dictionary/context) |
 | 移动到不同的目录或 repo | prototype 目录是常见情况 |
 | 把工作交给同事 | 他们需要一份能读的东西 |
 | Fork 一个在 phase 中途发现的 side task | 你继续工作；第二个 agent 拿走那个 fork |
@@ -45,16 +45,16 @@
 临时目录，这是这个 skill 最常被报告的摩擦点：路径很长、因 OS 而异，而在 Windows 上 agent 有时要好几次尝试才能找到正确的那一个。在继续之前，让 agent 把路径报回来并保存它。Temp 是刻意的：一份 handoff 是过境文档，而不是你要维护的 artifact。它也不是耐久的——见下一个问题。
 
 **我的 handoff 在 session 之间消失了。**
-有些环境会在 session 之间清空 temp——Codex 是被报告的情况——而 `/private/tmp` 会在重启时消失。如果下一个 session 不会在一小时内开始，或者将在不同的 harness 下开始，就在文件被写出的那一刻自己把它复制到某个耐久的去处。这同样适用于文档*指向*的任何东西：一份引用 temp 中其他文件的 dispatch，是下一个 agent 无法跟进的 dispatch。
+有些环境会在 session 之间清空 temp，而 `/private/tmp` 会在重启时消失。如果下一个 session 不会在一小时内开始，或者将在不同的 harness 下开始，就在文件被写出的那一刻自己把它复制到某个耐久的去处。这同样适用于文档*指向*的任何东西：一份引用 temp 中其他文件的 dispatch，是下一个 agent 无法跟进的 dispatch。
 
 **我到底怎么把它交给下一个 agent？**
-打开全新的 session，让它指向那个路径：读这个文件，然后继续。让 agent 指向文件，而不是把摘要粘贴进一条 shell 命令——一个包含反引号或 `$(...)` 的摘要，在被插值进 `claude "<summary>"` 时会被破坏，而常见的失败是静默截断而不是报错，所以新的 agent 会带着一份悄悄不完整的 brief 开始。
+打开全新的 session，让它指向那个路径：读这个文件，然后继续。让 agent 指向文件，而不是把摘要粘贴进一条 shell 命令——包含反引号或 `$(...)` 的摘要在 shell 中容易被破坏，常见的失败是静默截断而不是报错，所以新的 agent 会带着一份悄悄不完整的 brief 开始。
 
 **这和 `/branch`、`--fork-session` 或内置的 `/handoff` 一样吗？**
 类似，但不相同，而且 `/branch` 在这里并不是一个已发布的 skill——`/handoff` 才是规范名称。一个 fork 继承 context 的一份精确副本；这个 skill 产出一份针对所声明的下一个任务的*定向*压缩，保存在文件里。当 fork 可行时——同一台机器、同一个 harness、同一个目录——fork 的工作量更小。一旦目的地是 fork 到不了的地方，文件就赢了。
 
-**什么时候某样东西反而该放进 `CLAUDE.md`？**
-问问它在下个月是否依然成立。`CLAUDE.md` 是关于项目的常设 context，无论是否相关都会被加载进每个 session。一份 handoff 只关乎一项进行中的工作，一旦它落地就失效。反复需要重新解释的事实是 `CLAUDE.md` 的范畴；一项半成品的任务是 handoff 的范畴。
+**什么时候某样东西反而该放进 `AGENTS.md`？**
+问问它在下个月是否依然成立。`AGENTS.md` 是关于项目的常设 context，无论是否相关都会被加载进每个 session。一份 handoff 只关乎一项进行中的工作，一旦它落地就失效。反复需要重新解释的事实是 `AGENTS.md` 的范畴；一项半成品的任务是 handoff 的范畴。
 
 **它捕获的是 what，而不是 why。**
 一个公允且反复出现的批评。有两件事有帮助。传递论据——告诉它下一个 session 是干什么的——这样与*那件事*相关的推理就会被保留，而不是被压平。还要留意 session 从未真正验证过的、自信的断言：「X 还没构建」、「Y 完成了」。下一个 agent 会把文档当作契约，不会重新检查它，所以一个被写成事实的信念会成为后续一切的错误前提。在把它交出去之前自己读一遍文档，并把任何你只是假设的东西降级。

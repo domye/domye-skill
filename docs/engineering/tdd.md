@@ -60,7 +60,7 @@ Mocks 只用于系统边界——外部 APIs、时间、随机性，有时是 fi
 
 **它应该先写 browser 或 end-to-end tests 吗？**
 
-通常不，而 skill 也不会阻止它。一个用户报告说 agent 先写了 Playwright test，然后烧了一个很长的 loop 重新运行它，并为一个还不存在的 feature 断定是 *test* 坏了。在你的 `CLAUDE.md` 中配置这个。Browser tests 慢到 red-green feedback loop 不再收回成本；在你的 repo 的 `CLAUDE.md` 中声明它们在 behavior 工作之后才写。
+通常不，而 skill 也不会阻止它。一个用户报告说 agent 先写了 Playwright test，然后烧了一个很长的 loop 重新运行它，并为一个还不存在的 feature 断定是 *test* 坏了。在你的 `AGENTS.md` 中配置这个。Browser tests 慢到 red-green feedback loop 不再收回成本；在你的 repo 的 `AGENTS.md` 中声明它们在 behavior 工作之后才写。
 
 **`/tdd` 会取代 `/implement`，或课程里的 `/do-work` 吗？**
 

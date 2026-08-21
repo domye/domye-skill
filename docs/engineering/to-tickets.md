@@ -62,7 +62,7 @@ Over-decomposition 是这个 skill 上被报告最多的摩擦，而且在从业
 这是 vertical-slice 规则针对去写的那个失败，而 skill 有时仍然会产出它。在质问步骤用每个 ticket 一个问题来抓住它：它完成时我能 demo 什么？一个没有答案的 ticket 就是一个 horizontal slice。有些人为此在每个 ticket 里加一行 "demo path"，并报告说这会把 model 推向 vertical decomposition。
 
 **在 GitHub 上 tickets 没有被创建为 spec issue 的 sub-issues。**
-已知且未修复。它已在十几次运行和几个模型中被报告，[最完整地见 issue #554](https://github.com/mattpocock/skills/issues/554)，而且在 Codex 上比 Claude 上更糟。`gh` 从 v2.94 起原生支持这个：`gh issue create --parent <n>`，以及事后的 `gh issue edit <parent> --add-sub-issue <n>`。在 tracker template 优先使用这些之前，运行后自己接好父链接是可靠的做法。
+已知且未修复。它已在十几次运行和几个模型中被报告，[最完整地见 issue #554](https://github.com/mattpocock/skills/issues/554)。`gh` 从 v2.94 起原生支持这个：`gh issue create --parent <n>`，以及事后的 `gh issue edit <parent> --add-sub-issue <n>`。在 tracker template 优先使用这些之前，运行后自己接好父链接是可靠的做法。
 
 **"Blocked by" 被写进了 issue body，而不是一个真正的 blocking link。**
 同类问题，[报告于 issue #513](https://github.com/mattpocock/skills/issues/513)，那里的 agent 甚至断言 GitHub 根本没有 native blocking relationship。它有的——`gh issue create --blocked-by 12,15`。因为 blockers 先被发布，它们的编号在创建时总是可用的。Body 文本本来是给没有 native edge 的 trackers 的 fallback，而不是默认。

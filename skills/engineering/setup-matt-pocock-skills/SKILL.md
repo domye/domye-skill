@@ -73,11 +73,9 @@ disable-model-invocation: true
 
 **选择要编辑的文件：**
 
-- 如果 `CLAUDE.md` 存在，编辑它。
-- 否则如果 `AGENTS.md` 存在，编辑它。
-- 如果两者都不存在，询问用户要创建哪一个；不要替用户选择。
-
-当 `CLAUDE.md` 已存在时，绝不创建 `AGENTS.md`（反之亦然）；始终编辑已经存在的那个。
+- 如果 `AGENTS.md` 存在，编辑它（Pi 的标准配置文件）。
+- 否则如果 `CLAUDE.md` 存在，编辑它（Pi 也读取此文件）。
+- 如果两者都不存在，创建 `AGENTS.md`。
 
 如果所选文件已有 `## Agent skills` block，就原地更新其内容，而不是追加重复 block。不要覆盖周围 sections 的用户编辑。
 

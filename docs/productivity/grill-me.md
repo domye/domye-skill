@@ -52,7 +52,7 @@
 通常是因为 scope 太大了。先让 agent 把工作拆成更小的块，然后分别 grill 每一块。非常长的 session 也会漂进 **[dumb zone](https://www.aihero.dev/ai-coding-dictionary/smart-zone)**，在那里 [context window](https://www.aihero.dev/ai-coding-dictionary/context-window) 已经足够满，以至于问题变得更糟。
 
 **我能回到一次只问一个问题吗？**
-可以。把这段加到你的全局 `CLAUDE.md` 里：
+可以。把这段加到你的全局 `AGENTS.md` 里：
 
 ```
 When grilling, ask one question at a time.

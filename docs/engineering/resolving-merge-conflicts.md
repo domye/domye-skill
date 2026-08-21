@@ -24,7 +24,7 @@
 
 ## Common questions
 
-**Claude Code 本来就很擅长自行解决 merge conflicts。为什么还需要一个 skill？**
+**Pi 本来就很擅长自行解决 merge conflicts。为什么还需要一个 skill？**
 
 附加价值就在于 "find the primary sources" 和 "run feedback loops" 这两步，否则每一步都得每次都手工提示。一个未经提示的 agent 通常只会凭 diff 产生一个看似合理的解决结果，然后就此打住。这个 skill 的价值在于它绝不允许 agent 跳过的那两步——阅读每一侧为什么存在，以及事后运行检查。这相对于一个优秀的 [model](https://www.aihero.dev/ai-coding-dictionary/model) 来说是一层很薄的余量，而且它本应如此：至少有一位读者预言过这是一个会随着模型变好而变成 no-op 的完整 skill。
 

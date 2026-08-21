@@ -11,7 +11,7 @@
 | 你的处境 | 指向 |
 | --- | --- |
 | 存在一个 diff，你想知道它是否*构建得对* *并且*是正确的东西 | `code-review` |
-| 你想在 diff 里猎杀 bugs——null paths、races、off-by-one | Claude Code 自己的内置 review，而不是这一个（见下面的命名冲突） |
+| 你想在 diff 里猎杀 bugs——null paths、races、off-by-one | Pi 的内置 review，而不是这一个 |
 | 什么都还没写，你想让它 test-first 地写出来 | [tdd](https://aihero.dev/skills-tdd) |
 | 一整份 spec 需要被构建，review 包括在内 | [implement](https://aihero.dev/skills-implement)，它自己会调用这个 skill |
 | 是整个 codebase 漂移了，而不是一个 diff | [improve-codebase-architecture](https://aihero.dev/skills-improve-codebase-architecture) |
@@ -47,9 +47,9 @@ Spec 轴线需要一份 spec 存在且可找到。它按这个顺序查找：
 
 ## Common questions
 
-**它和 Claude Code 自己的 `/code-review` 冲突。我该怎么办？**
+**Pi 没有内置 `/code-review`，这个 skill 有命名冲突吗？**
 
-这是这个 skill 被报告最多的一个问题，而且没有修复。Claude Code 自带自己的 `/code-review`，它做的是不同的事——它在 diff 里猎杀 bugs，而这一个检查 spec 合规和仓库标准。安装这个库意味着其中一个会赢，而哪个赢取决于你如何安装。通过 plugin marketplace 安装时，一切都被别名到 `mattpocock-skills:` 前缀之下，内置的那个在非限定名字下就变得难以够到；通过普通 skills 安装时，本地文件会赢，这个 skill 遮蔽内置的。一个干净的答案是彻底移除 Claude Code 的内置 skills：一次巨大的 [context](https://www.aihero.dev/ai-coding-dictionary/context) 节省，而且冲突不再要紧。遮蔽本身按理说是 Claude Code [harness](https://www.aihero.dev/ai-coding-dictionary/harness) 的一个 bug——skill 作者本应可以随心所欲地给 skill 起名——所以另一个答案是重命名本地副本。编辑 frontmatter 或重命名目录会被 `npx skills update` 撤销；用户报告的可持久 workaround 是把 skill fork 到一个新名字，并把 `code-review` 从受管集合中剔除，记下你 fork 自哪个 commit，以便你能手动重新同步。
+没有。Pi 不自带名为 `/code-review` 的内置 skill，所以这个 skill 可以直接使用，无需额外处理。
 
 **它的 sub-agents 一直再次调用 `/code-review`，然后生成更多 agents。**
 

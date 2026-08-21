@@ -4,7 +4,7 @@
 
 这些文件是 repo 之间唯一会变化的东西。Skills 本身在任何地方都相同；它们在运行时读取 `docs/agents/issue-tracker.md`，并按它说的去做。这就是为什么这套工具不绑定 GitHub，也为什么任何 skill 文件永远都不需要编辑来指向别处。用 "link the skills to a custom issue tracker" 来调用它，可以用任何你能以编程方式连接的东西，对 skills 零改动。
 
-它是一个 prompt 驱动的 skill，而不是一个确定性的脚本。它读取你的 `git remote`、你已有的 `CLAUDE.md`、你已有的 `CONTEXT.md`，提出它发现的内容，并在写入任何东西之前等你确认。
+它是一个 prompt 驱动的 skill，而不是一个确定性的脚本。它读取你的 `git remote`、你已有的 `AGENTS.md`、你已有的 `CONTEXT.md`，提出它发现的内容，并在写入任何东西之前等你确认。
 
 ## When to reach for it
 
@@ -21,7 +21,7 @@
 | `issue-tracker.md` | `docs/agents/` |
 | `domain.md` | `docs/agents/` |
 | `triage-labels.md` | `docs/agents/`，仅在安装了 `triage` skill 时 |
-| 一个 `## Agent skills` 块 | 已存在的 `CLAUDE.md` / `AGENTS.md` 中二者之一 |
+| 一个 `## Agent skills` 块 | 已存在的 `AGENTS.md` 或 `CLAUDE.md` 中 |
 
 全部都是已提交的 markdown。没有 user-level 或 global 模式：config 就在 repo 里，所以每个 repo 都有自己的副本。
 
@@ -58,9 +58,9 @@ tracker 选项：
 
 在 v1.1 之后被直接问到，Matt 回答要。这个 skill 自己的收尾消息更温和——它告诉你只有在切换 tracker 或从头来过时才需要重新运行。两种说法都说得通，而这个差距的原因是真的：seed templates 会随版本变化，所以一个由旧版本写出的 `docs/agents/issue-tracker.md`，对着现在正在读取它的 skills 会过时。如果某个下游 skill 开始以 docs 描述不同的方式行事，重新运行就是廉价的修复。
 
-**它写进了 `CLAUDE.md`，但我用的是 Codex。**
+**它写进了 `CLAUDE.md`，但我用的是 Pi。**
 
-已知缺口，仍未解决。文件选择规则是 "如果存在 `CLAUDE.md` 就编辑它，否则编辑 `AGENTS.md`"——它检查的是哪个文件存在，而不是哪个 [harness](https://www.aihero.dev/ai-coding-dictionary/harness) 在运行。一个遗留自 Claude Code 的、带有 `CLAUDE.md` 的 repo，会把它 `## Agent skills` 块写到 Codex 从不读取的地方。有两个 workaround 在流传：手工把块移到 `AGENTS.md`，或者让 `AGENTS.md` 成为 canonical，并让 `CLAUDE.md` 成为指向它的单行 pointer。如果两个文件都不存在，这个 skill 会询问你要创建哪一个，而不是替你做决定——这让那些期望它直接决定的人感到困惑。
+Pi 同时读取 `AGENTS.md` 和 `CLAUDE.md`，所以写到哪个文件都可以。推荐使用 `AGENTS.md` 作为 canonical 文件（Pi 的标准位置：`~/.pi/agent/`）。如果两个文件都不存在，这个 skill 会询问你要创建哪一个。
 
 **它没有创建我的 triage labels。**
 
@@ -71,9 +71,9 @@ tracker 选项：
 
 **我能在这里配置其他 skills 的行为吗——[grilling](https://www.aihero.dev/ai-coding-dictionary/grilling) 节奏、问题格式、语气？**
 
-不能。它配置三件事：tracker、labels、doc 布局。有人直接要求让它成为 per-user preferences 的归属地，而长期以来的回答是：skills 保持 opinionated：*"Config is death."* Preferences 属于你的 `CLAUDE.md`，作为普通指令，每个 skill 都已经会读取它。
+不能。它配置三件事：tracker、labels、doc 布局。有人直接要求让它成为 per-user preferences 的归属地，而长期以来的回答是：skills 保持 opinionated：*"Config is death."* Preferences 属于你的 `AGENTS.md`，作为普通指令，每个 skill 都已经会读取它。
 
-**我能把 config 放在 `~/.claude` 而不是提交到每个 repo 吗？**
+**我能把 config 放在 `~/.pi/agent/` 而不是提交到每个 repo 吗？**
 
 今天不行。有一个来自跨多个 repo 运行这些 skills 的人的开放请求，也不存在 user-level 模式。每个 repo 各自携带自己的 `docs/agents/`。
 

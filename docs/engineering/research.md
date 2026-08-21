@@ -32,7 +32,7 @@
 
 **它衍生出了第二个 research agent——这是该发生的吗？**
 
-不是。这是一个 open bug，[issue #530](https://github.com/mattpocock/skills/issues/530)。这个 skill 告诉它的调用者去启动一个 background agent，但不去限制 agent 类型，所以它衍生出的 agent 是一个持有 `Agent` 工具和相同指令的 `general-purpose` agent——于是又开火了一次。一位报告者测算，单个 research 任务在三次重叠运行中消耗了大约 450k [tokens](https://www.aihero.dev/ai-coding-dictionary/token)，而复制的那个在整整半小时后、完全无人可见地完成。它在 Claude Code 之外也能复现；同样的嵌套在 Codex 里用 GPT-5.6-sol 得到了确认。没有随附的修复。用户们给自己安装的副本打上了补丁，加了一行命令，告诉一个已经是 [subagent](https://www.aihero.dev/ai-coding-dictionary/subagent) 的 agent 自己做这份工作，这有帮助，但属于指令层面，而非结构层面。调用后留意你的 background task 列表，并停掉那个复制的任务。
+不是。这是一个 open bug，[issue #530](https://github.com/mattpocock/skills/issues/530)。这个 skill 告诉它的调用者去启动一个 background agent，但不去限制 agent 类型，所以它衍生出的 agent 是一个持有相同指令的 agent——于是又开火了一次。一位报告者测算，单个 research 任务在三次重叠运行中消耗了大约 450k [tokens](https://www.aihero.dev/ai-coding-dictionary/token)。没有随附的修复。用户们给自己安装的副本打上了补丁，加了一行命令，告诉一个已经是 [subagent](https://www.aihero.dev/ai-coding-dictionary/subagent) 的 agent 自己做这份工作，这有帮助，但属于指令层面，而非结构层面。调用后留意你的 background task 列表，并停掉那个复制的任务。
 
 相反的失败也存在：如果你自己的全局指令禁止 agent 重新委派工作，background agent 会礼貌地拒绝这个任务，而 skill 则静默地什么都不做。
 

@@ -67,9 +67,9 @@ Depth 刻意*不*被定义为 implementation 行数对 interface 行数的比值
 
 它现在用了。很长一段时间它没有。曾经住在 `tdd` 里的内联 deep-module 笔记在 v1.0 中被移除，以支持这个共享 skill，但替换它们的指针从未被加上——所以 `tdd` 为自己定义了 "seam"，且不引用任何东西。这个缺口已经合上：指针现在在 skill 里，在 interface 的形状是公开问题、而非 tests 是公开问题时被够到。`tdd` 仍然拥有作为你*测试*所在的边界的 "seam"；这个 skill 拥有它背后的 module 形状。
 
-**Design-it-twice 模式在 Claude Code 之外能工作吗？**
+**Design-it-twice 模式在 Pi 中能工作吗？**
 
-不能干净地工作。`DESIGN-IT-TWICE.md` 说「spawn 3+ sub-agents in parallel using the Agent tool」，这是 Claude Code 用 Claude Code 的名字称呼的 [tool](https://www.aihero.dev/ai-coding-dictionary/tool)。仓库为其他 [harnesses](https://www.aihero.dev/ai-coding-dictionary/harness)（包括 Codex）随附发布元数据，而那些可能不会在同一个名字下暴露任何东西——所以并行设计阶段比 skill 的元数据所暗示的更不可移植。在 [issue #564](https://github.com/mattpocock/skills/issues/564) 中追踪，开着。
+部分可以。Pi 没有内置的 sub-agent tool，所以并行设计阶段需要手动启动多个 Pi 实例（例如通过 tmux）来实现。如果你安装了 Pi 的 sub-agent extension，它可以工作。在 [issue #564](https://github.com/mattpocock/skills/issues/564) 中追踪，开着。
 
 **我能往 glossary 里加我自己的概念吗——connascence、module secrets、[progressive disclosure](https://www.aihero.dev/ai-coding-dictionary/progressive-disclosure)？**
 

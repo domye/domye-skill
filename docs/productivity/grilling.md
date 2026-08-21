@@ -43,7 +43,7 @@
 ## Common questions
 
 **我能回到一次只问一个问题吗？**
-可以，而且受众中有很大一部分就是这么做的。把这段加到你的全局 `CLAUDE.md` 里：
+可以，而且受众中有很大一部分就是这么做的。把这段加到你的全局 `AGENTS.md` 里：
 
 ```
 When grilling, ask one question at a time.
@@ -52,13 +52,13 @@ When grilling, ask one question at a time.
 round-based 的默认设置确实存在争议。读得慢的实践者、用第二语言工作的人、或者把顺序格式当作专注脚手架的人，都报告一次一个的节奏对他们更好，而这个退出选项是受到支持的，而不是勉强容忍的。
 
 **`/batch-grill-me` 去哪里了？**
-进到了这个 skill 里。round-based 的提问曾短暂地作为一个独立的 skill 发布，然后并入了 `grilling` 本身，所以所有建立在那个 primitive 之上的东西——`grill-me`、`grill-with-docs`、`triage`、`wayfinder`——都立刻得到了它。没有需要安装的 `batch-grill-me`，也没有单独的顺序 skill；上面的那行 `CLAUDE.md` 就是回到一次一个的途径。
+进到了这个 skill 里。round-based 的提问曾短暂地作为一个独立的 skill 发布，然后并入了 `grilling` 本身，所以所有建立在那个 primitive 之上的东西——`grill-me`、`grill-with-docs`、`triage`、`wayfinder`——都立刻得到了它。没有需要安装的 `batch-grill-me`，也没有单独的顺序 skill；上面的那行 `AGENTS.md` 就是回到一次一个的途径。
 
 **一次问整个 round 必然会丢掉我早先的回答会引发的问题。不是吗？**
 这是对 round 设计最常见的反对意见，而 frontier 就是答案：一个 round 只包含互不依赖的问题，所以一个 round 里的任何回答都不可能使该 round 里的另一个问题失效。回答仍然会重塑下游的一切——下一个 round 是被重新计算出来的，而不是预先写好的。你失去的东西比「一次问所有问题」所暗示的要小，又比什么都没有要大：见上面 frontier 的局限。
 
 **它问完了问题，然后开始构建了。**
-确认关卡恰恰为此而存在：当 frontier 清空时 skill 并没有结束，只有当你说理解已经共享时它才结束。更弱、更快的 [models](https://www.aihero.dev/ai-coding-dictionary/model) 仍然会破坏它——这在低 effort 或非 frontier 模型上最常被报告，它们会把「持续访谈直到共同理解」塌缩成几个问题加一份大纲。如果你的模型会这样，可靠的修复是在你自己的 `AGENTS.md` 或 `CLAUDE.md` 里加一行，告诉 agent 未经许可不要实施。
+确认关卡恰恰为此而存在：当 frontier 清空时 skill 并没有结束，只有当你说理解已经共享时它才结束。更弱、更快的 [models](https://www.aihero.dev/ai-coding-dictionary/model) 仍然会破坏它——这在低 effort 或非 frontier 模型上最常被报告，它们会把「持续访谈直到共同理解」塌缩成几个问题加一份大纲。如果你的模型会这样，可靠的修复是在你自己的 `AGENTS.md` 里加一行，告诉 agent 未经许可不要实施。
 
 **它自己回答了问题，而不是问我。**
 这是运行中的 bug，而不是预期的行为，这正是 facts 和 decisions 在 skill 文本中被分开的原因。它最常出现在另一个 skill 在 resolve-this-ticket 框架内运行 `grilling` 时，那里的外围任务看起来像允许它继续前进。同样的约束也是为什么没有 async 模式：人们曾要求一个读取 GitHub issue 并发布一份汇总 decision memo 的变体，而那是一个不同的 skill，因为一场无人回答的 grilling session 产出的是 agent 的意见，而不是你的。

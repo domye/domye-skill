@@ -72,9 +72,9 @@ Scoping 发生在写出任何一行之前。[skill](https://www.aihero.dev/ai-co
 
 没有特别的位置。它是一个 standalone，不是链条上的一环。常见的猜测是 `/grill-with-docs → /to-spec → /wizard`，这个顺序没问题，但触发条件是出现一项手动流程，而它可能发生在任何时刻：开工之前、构建中途，或发布很久之后。它也可以作为发现工具——scoping 会在你投入工作之前，浮出一个任务的隐藏前置条件，比如你从没想过的三把 API keys。
 
-**它在 Claude Code 之外能用吗？**
+**它在 Pi 中能用吗？**
 
-artifact 可以，无任何条件：它是一个普通 bash 脚本，不关心是哪个 [harness](https://www.aihero.dev/ai-coding-dictionary/harness) 生成的。Skill 本身是 model-invoked，所以它到处都在列表里——在 Claude Code 中输入 `/wizard`，或在 Codex 中输入 `$wizard`，或者直接描述你卡住的 setup。正因为是 model-invoked，它也避开了 [#693](https://github.com/mattpocock/skills/issues/693)——Claude 的桌面和 web 界面会把 *user-invoked* skills 从 [model](https://www.aihero.dev/ai-coding-dictionary/model) 的列表中丢掉，并报告它们未安装。
+可以。artifact 是一个普通 bash 脚本，Pi 不关心它是怎么生成的。Skill 本身是 model-invoked，所以在 Pi 中输入 `/wizard` 或直接描述你卡住的 setup 即可。
 
 **它以前不是 user-invoked 吗？**
 

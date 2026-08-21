@@ -22,7 +22,7 @@ Greenfield 不是必要条件。Wayfinder 也常规地用于 legacy 和半成品
 
 ## Prerequisites
 
-Map 及其 tickets 位于 repo 的 issue tracker 上，因此 wayfinder 需要 [setup-matt-pocock-skills](https://aihero.dev/skills-setup-matt-pocock-skills) 铺设的 tracker wiring。该步骤会写入一个 "Wayfinding operations" 小节，描述 map、child tickets、blocking edges 和 frontier queries 在 GitHub、GitLab 或 local markdown 上如何表达。Wayfinder 通过你 `CLAUDE.md` / `AGENTS.md` 中的 pointer 解析这份文档，而不是某个固定路径；如果完全没有配置 tracker，它就回退到 local markdown 文件。
+Map 及其 tickets 位于 repo 的 issue tracker 上，因此 wayfinder 需要 [setup-matt-pocock-skills](https://aihero.dev/skills-setup-matt-pocock-skills) 铺设的 tracker wiring。该步骤会写入一个 "Wayfinding operations" 小节，描述 map、child tickets、blocking edges 和 frontier queries 在 GitHub、GitLab 或 local markdown 上如何表达。Wayfinder 通过你 `AGENTS.md` 中的 pointer 解析这份文档，而不是某个固定路径；如果完全没有配置 tracker，它就回退到 local markdown 文件。
 
 Tracker 不是装饰。正是 blocking 让 frontier 在 tracker 自己的 UI 中可视化呈现，而一个没有原生依赖链接的 tracker——比如自托管的 Gitea——会让 wayfinder 退化为从 map 文本推断 blockers，这能用，但需要更密切的监督。
 
