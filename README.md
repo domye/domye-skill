@@ -17,7 +17,7 @@
 ## 30 秒安装
 
 ```bash
-npx skills@latest add vinvcn/mattpocock-skills-zh-CN
+npx skills@latest add domye/domye-skill
 ```
 
 选择你想安装的 skills，以及要安装到哪些 coding agents。首次安装时请确保选择 [`/setup-matt-pocock-skills`](./skills/engineering/setup-matt-pocock-skills/SKILL.md)，然后在 agent 中运行它来完成 issue tracker、labels 和 docs 目录配置。
@@ -35,7 +35,7 @@ bash scripts/link-skills.sh
 本仓库可直接作为 [Pi 包](https://pi.dev/docs/latest/packages) 安装：
 
 ```bash
-pi install git:github.com/vinvcn/mattpocock-skills-zh-CN
+pi install git:github.com/domye/domye-skill
 ```
 
 或本地安装：`pi install /path/to/repo`（仓库根目录的 `package.json` 声明了 `pi` manifest，指向 `skills/` 与 `extensions/`）。
@@ -46,7 +46,7 @@ pi install git:github.com/vinvcn/mattpocock-skills-zh-CN
 - `/ask-matt <情境>` 命令是 **ask-matt 路由器引导**入口：根据当前情境推荐合适的 skill 或 flow。ask-matt 是 user-invoked skill（`disable-model-invocation: true`），不会进入模型上下文，因此引导完全可选、按需触发。
 - 想禁用短命令：用 `pi config`（或 settings.json 包过滤）关闭本扩展；单独 skills 也可在 `pi config` 中开关。
 
-[![skills.sh](https://skills.sh/b/vinvcn/mattpocock-skills-zh-CN)](https://skills.sh/vinvcn/mattpocock-skills-zh-CN)
+[![skills.sh](https://skills.sh/b/domye/domye-skill)](https://skills.sh/domye/domye-skill)
 
 <p>
   <a href="https://www.aihero.dev/s/skills-newsletter">
@@ -75,7 +75,7 @@ pi install git:github.com/vinvcn/mattpocock-skills-zh-CN
 1. 运行 skills.sh installer：
 
 ```bash
-npx skills@latest add vinvcn/mattpocock-skills-zh-CN
+npx skills@latest add domye/domye-skill
 ```
 
 2. 选择你想安装的 skills，以及要安装到哪些 coding agents。**确保选择 `/setup-matt-pocock-skills`**。
@@ -200,7 +200,7 @@ AI 时代也是一样。你和 agent 之间存在沟通缺口。修复方式是�
 - **[ask-matt](./skills/engineering/ask-matt/SKILL.md)** - 询问当前情境适合哪个 skill 或 flow；它是本仓库 user-invoked skills 的 router。
 - **[grill-with-docs](./skills/engineering/grill-with-docs/SKILL.md)** - 追问式访谈，同时构建项目的 domain model、打磨术语，并内联更新 `CONTEXT.md` 与 ADRs。
 - **[triage](./skills/engineering/triage/SKILL.md)** - 通过 triage roles state machine 推进 issues。
-- **[improve-codebase-architecture](./skills/engineering/improve-codebase-architecture/SKILL.md)** - 扫描 codebase 中的 deepening opportunities，生成可视化 HTML report，然后围绕你选中的候选项继续 grilling。
+- **[improve-codebase-architecture](./skills/engineering/improve-codebase-architecture/SKILL.md)** - 扫描 codebase 中的 deepening opportunities，直接描述需要修改的内容，然后围绕你选中的候选项继续 grilling。
 - **[setup-matt-pocock-skills](./skills/engineering/setup-matt-pocock-skills/SKILL.md)** - 配置 issue tracker、triage labels 和 domain docs 布局。每个 repo 运行一次。
 - **[to-spec](./skills/engineering/to-spec/SKILL.md)** - 把当前对话整理成 spec 并发布到 issue tracker。不做访谈，只综合已经讨论过的内容。
 - **[to-tickets](./skills/engineering/to-tickets/SKILL.md)** - 把 plan、spec 或 conversation 拆成 tracer-bullet tickets，每个 ticket 声明 blocking edges——在 local file 中写成文本，或在真实 tracker 上写成 native blocking links。

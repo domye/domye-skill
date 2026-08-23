@@ -1,6 +1,6 @@
 ---
 name: improve-codebase-architecture
-description: 扫描代码库中的深化机会，生成可视化 HTML 报告，然后围绕你选中的候选项继续追问。
+description: 扫描代码库中的深化机会，直接描述需要修改的内容，然后围绕你选中的候选项继续追问。
 disable-model-invocation: true
 ---
 
@@ -34,30 +34,23 @@ disable-model-invocation: true
 
 对任何你怀疑 shallow 的东西应用 **deletion test**：删除它会让复杂度集中，还是只把复杂度移动到别处？"yes, concentrates" 才是你要的 signal。
 
-### 2. Present candidates as an HTML report
+### 2. Present candidates directly
 
-把 self-contained HTML file 写到 OS temp directory，避免任何内容落进 repo。Temp dir 从 `$TMPDIR` 解析，fallback 到 `/tmp`（Windows 用 `%TEMP%`），写到 `<tmpdir>/architecture-review-<timestamp>.html`，让每次运行都有新文件。为用户打开它：Linux 用 `xdg-open <path>`，macOS 用 `open <path>`，Windows 用 `start <path>`，并告诉用户 absolute path。
-
-Report 使用 **Tailwind via CDN** 做 layout/styling，用 **Mermaid via CDN** 做能可靠传达结构的 diagrams。Mermaid 和手写 CSS/SVG visuals 可以混用：关系是 graph-shaped（call graphs、dependencies、sequences）时用 Mermaid；需要 editorial 表达（mass diagrams、cross-sections、collapse animations）时用手写 divs/SVG。每个 candidate 都要有 **before/after visualisation**。要视觉化。
-
-每个 candidate 渲染一张 card，包含：
+直接在对话中呈现 candidates——不生成 HTML、不写文件、不打开浏览器。每个 candidate 用紧凑结构列出：
 
 - **Files** - 涉及哪些 files/modules
 - **Problem** - 当前 architecture 为什么造成 friction
-- **Solution** - 会改变什么，用 plain English 描述
+- **Solution** - 会改变什么，用 plain English 描述，含 before → after 的转变
 - **Benefits** - 用 locality 与 leverage 解释收益，以及 tests 如何改善
-- **Before / After diagram** - side-by-side，自绘，说明 shallowness 与 deepening
-- **Recommendation strength** - `Strong`、`Worth exploring`、`Speculative` 之一，渲染为 badge
-
-Report 末尾包含 **Top recommendation** section：你会先处理哪个 candidate，以及为什么。
+- **Recommendation strength** - `Strong`、`Worth exploring`、`Speculative` 之一
 
 **用 `CONTEXT.md` vocabulary 表达 domain，用 `/codebase-design` vocabulary 表达 architecture。** 如果 `CONTEXT.md` 定义了 "Order"，就说 "Order intake module"，不要说 "FooBarHandler"，也不要说 "Order service"。
 
-**ADR conflicts**：如果 candidate 与现有 ADR 冲突，只有在 friction 真实到值得重新打开 ADR 时才提出。Card 中明确标记（例如 warning callout：_"contradicts ADR-0007 - but worth reopening because..."_）。不要列出 ADR 理论上禁止的每个 refactor。
+**ADR conflicts**：如果 candidate 与现有 ADR 冲突，只有在 friction 真实到值得重新打开 ADR 时才提出。候选中明确标记（例如 warning：_"contradicts ADR-0007 - but worth reopening because..."_）。不要列出 ADR 理论上禁止的每个 refactor。
 
-完整 HTML scaffold、diagram patterns 和 styling guidance 见 [HTML-REPORT.md](HTML-REPORT.md)。
+末尾给出 **Top recommendation**：你会先处理哪个 candidate，以及为什么。
 
-现在不要提出 interfaces。写完文件后问用户："Which of these would you like to explore?"
+现在不要提出 interfaces。展示完 candidates 后问用户："Which of these would you like to explore?"
 
 ### 3. Grilling loop
 

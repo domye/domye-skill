@@ -1,10 +1,10 @@
 ## What it does
 
-`improve-codebase-architecture` 扫描 codebase，寻找 **deepening opportunities**——那些 shallow module（interface 几乎和它所隐藏的东西一样复杂）可以变成 deep module 的地方——把它们写成一份自包含的 HTML report，然后就你选中的那一个继续 [grills](https://www.aihero.dev/ai-coding-dictionary/grilling) 你。
+`improve-codebase-architecture` 扫描 codebase，寻找 **deepening opportunities**——那些 shallow module（interface 几乎和它所隐藏的东西一样复杂）可以变成 deep module 的地方——把它们直接描述成需要修改的内容，然后就你选中的那一个继续 [grills](https://www.aihero.dev/ai-coding-dictionary/grilling) 你。
 
-它从不改动代码。整个运行产出一份位于 OS 临时目录里的 HTML 文件加一场对话；refactor 本身发生在之后、在一个独立的 [session](https://www.aihero.dev/ai-coding-dictionary/session)、经由正常的 build flow。这正是它作为一份 survey 而不是一个 refactoring 工具的原因，也正因如此，这个 skill 值得在你尚未准备好去动的 codebase 上运行。
+它从不改动代码。整个运行产出一场对话，不生成任何文件；refactor 本身发生在之后、在一个独立的 [session](https://www.aihero.dev/ai-coding-dictionary/session)、经由正常的 build flow。这正是它作为一份 survey 而不是一个 refactoring 工具的原因，也正因如此，这个 skill 值得在你尚未准备好去动的 codebase 上运行。
 
-两道过滤让 report 不至于沦为泛泛的清理建议。每个候选项都必须通过 **deletion test**——移除这个 module 会把复杂性*集中*到一个更小的 interface 后面，还是只是把它摊散到调用者之间？只有"会集中"的情况才配得上一张卡片。而且除非你把它指向某个特定区域，否则它会先读取最近的 commit 历史，把扫描偏向于正在活跃变化的路径，理由是：对没人触碰的代码做 deepening，是一次你永远不会兑现的 refactor。
+两道过滤让候选清单不至于沦为泛泛的清理建议。每个候选项都必须通过 **deletion test**——移除这个 module 会把复杂性*集中*到一个更小的 interface 后面，还是只是把它摊散到调用者之间？只有"会集中"的情况才配得上一张卡片。而且除非你把它指向某个特定区域，否则它会先读取最近的 commit 历史，把扫描偏向于正在活跃变化的路径，理由是：对没人触碰的代码做 deepening，是一次你永远不会兑现的 refactor。
 
 ## When to reach for it
 
@@ -29,13 +29,13 @@
 
 运行它无需任何前置条件。它会读取 `CONTEXT.md` 以及 `docs/adr/` 中存在的任何 ADRs，并在它们存在时用你领域自己的名词说话——一个候选项读起来是"加深 Order intake module"，而不是"重构 FooBarHandler"。
 
-它在两个地方写入。report 进入 `<tmpdir>/architecture-review-<timestamp>.html`，位于 repo 之外。在 grilling 循环期间，它会向 `CONTEXT.md` 添加或锐化术语——如果该文件不存在就创建它——并提议把一个被否决的候选项记录为 ADR，这样未来的运行就不会再次建议它。
+它在 grilling 循环期间向 `CONTEXT.md` 添加或锐化术语——如果该文件不存在就创建它——并提议把一个被否决的候选项记录为 ADR，这样未来的运行就不会再次建议它。
 
-## Depth, and the report that hunts for it
+## Depth, and the analysis that hunts for it
 
-这个 skill 围绕一个观念运转：**depth**。一个 deep module 把大量行为放在一个小而稳定的 interface 后面；一个 shallow module 则透过一个几乎和底下代码一样宽的 interface 泄漏自己的实现。这份 report 是对浅薄的搜寻——纯粹为了可测试性而抽出、而真正的 bug 活在它们被调用的方式里的 pure functions（没有 **locality**）、跨 **seams** 泄漏的 modules、不打开五个文件就无法理解的概念——以及一份修复它的 deepening 提议。
+这个 skill 围绕一个观念运转：**depth**。一个 deep module 把大量行为放在一个小而稳定的 interface 后面；一个 shallow module 则透过一个几乎和底下代码一样宽的 interface 泄漏自己的实现。这份分析是对浅薄的搜寻——纯粹为了可测试性而抽出、而真正的 bug 活在它们被调用的方式里的 pure functions（没有 **locality**）、跨 **seams** 泄漏的 modules、不打开五个文件就无法理解的概念——以及一份修复它的 deepening 提议。
 
-每个候选项都是一张卡片：涉及的文件、摩擦点、一份平实的英文解决方案、以 **locality** 和 **leverage** 表述的收益、一张 before/after 示意图，以及一个强度徽章。
+每个候选项都直接列明：涉及的文件、摩擦点、一份平实的英文解决方案、以 **locality** 和 **leverage** 表述的收益、before → after 的转变，以及一个强度徽章。
 
 | 徽章 | 对你意味着什么 |
 | --- | --- |
@@ -43,7 +43,7 @@
 | `Worth exploring` | 貌似合理的 deepening，但回报取决于代码下一步会走向哪里。 |
 | `Speculative` | 为了完整性而浮出水面。这些大多可以放心忽略。 |
 
-report 以一条 **Top recommendation** 收尾——它最想先处理的那一个——然后 skill 停下来，问你想探索哪个候选项。到那一刻为止还没有任何东西被决定，也没有任何代码被移动。
+候选清单以一条 **Top recommendation** 收尾——它最想先处理的那一个——然后 skill 停下来，问你想探索哪个候选项。到那一刻为止还没有任何东西被决定，也没有任何代码被移动。
 
 ## What happens after you pick one
 
@@ -53,19 +53,15 @@ report 以一条 **Top recommendation** 收尾——它最想先处理的那一�
 
 **它围绕一个想法 grill 了我一个小时，而不是给我看选项。我能关掉这个吗？**
 
-可以——调用时就说清楚（"别 grill 我，只给我看 report"）。这是这个 skill 最大的抱怨。一位用户直言不讳：他们喜欢它作为"获得透彻改进分析的便捷方式"，而在 grilling 循环被加入后发现它"几乎不可用"，报告了它提出单一方案然后连问"十个或上百个问题"的 session。设计意图是 report 先行，grill 只在你选中的候选项上开始，但较弱的 [models](https://www.aihero.dev/ai-coding-dictionary/model) 会直接跳去就它们的第一个想法访谈你。那个 thread 里的 reports 因 model 而差异巨大，这是一个 open issue——这个 skill 还没有文档化的 no-grill 模式。
-
-**report 打开是无样式的原始 HTML，没有任何示意图。发生了什么？**
-
-report 从 CDN 加载 Tailwind 和 Mermaid，所以打开它时需要网络访问，而一旦有什么东西拦截了那些脚本，它就会静默地坏掉。已上报的案例是一个要求 SRI hashes 的安全 hook：agent 加上了它们，CDN 提供给浏览器的字节与用于计算 hash 的 `curl` 得到的不同，于是浏览器拦截了脚本。离线和被锁定的环境也会撞上同一堵墙。agent 看不到这一点，因为它从不渲染页面。变通方案是要求内联 CSS 和手写的 SVG 示意图，而不是 CDN 脚手架。这是一个 open issue，也是一处真实的毛糙边缘。
+可以——调用时就说清楚（"别 grill 我，只给我看候选项"）。这是这个 skill 最大的抱怨。一位用户直言不讳：他们喜欢它作为"获得透彻改进分析的便捷方式"，而在 grilling 循环被加入后发现它"几乎不可用"，报告了它提出单一方案然后连问"十个或上百个问题"的 session。设计意图是 report 先行，grill 只在你选中的候选项上开始，但较弱的 [models](https://www.aihero.dev/ai-coding-dictionary/model) 会直接跳去就它们的第一个想法访谈你。那个 thread 里的 reports 因 model 而差异巨大，这是一个 open issue——这个 skill 还没有文档化的 no-grill 模式。
 
 **它给了我十二个候选项。我在同一个 session 里逐个处理，还是开启一个新的？**
 
-每次 session 一个候选项。在一场对话里逐个处理多个，会把 report、grilling、domain-model 编辑和代码变更一下子全塞进 [context window](https://www.aihero.dev/ai-coding-dictionary/context-window)。report 只活在一个临时文件里，所以要携带候选项本身而不是文件：挑一个、grill 它、把决策带进 `/to-spec`，把其余的变成你之后可以独立拾起的 [tickets](https://www.aihero.dev/ai-coding-dictionary/ticket)。把选中的改进放进一份 spec，而不是直接去实现。这是一个反复出现的问题，skill 本身没有文档化的工作流。
+每次 session 一个候选项。在一场对话里逐个处理多个，会把 report、grilling、domain-model 编辑和代码变更一下子全塞进 [context window](https://www.aihero.dev/ai-coding-dictionary/context-window)。所以要携带候选项本身：挑一个、grill 它、把决策带进 `/to-spec`，把其余的变成你之后可以独立拾起的 [tickets](https://www.aihero.dev/ai-coding-dictionary/ticket)。把选中的改进放进一份 spec，而不是直接去实现。这是一个反复出现的问题，skill 本身没有文档化的工作流。
 
 **我应该怎么 prompt 它？**
 
-心里想着你接下来要构建的东西。当一个大构建即将到来时，把它指向 spec 并问"我们怎样才能让这次变更变得容易？"一次没有 prompt 的运行会自行扫描热点，这对常规维护没问题，但点明一个方向才是让 report 具有可操作性的东西。
+心里想着你接下来要构建的东西。当一个大构建即将到来时，把它指向 spec 并问"我们怎样才能让这次变更变得容易？"一次没有 prompt 的运行会自行扫描热点，这对常规维护没问题，但点明一个方向才是让分析具有可操作性的东西。
 
 **它能在大型遗留 codebase 上工作吗？**
 
@@ -77,7 +73,7 @@ report 从 CDN 加载 Tailwind 和 Mermaid，所以打开它时需要网络访�
 
 **它会不会告诉我 codebase 没问题？**
 
-很少，而你进去之前就该知道这一点。这个 skill 是被构建来输出 findings 的，所以这种框架会把它推向产出候选项，而不是得出"没有什么不对"的结论。强度徽章就是防线——一份所有条目都是 `Speculative` 的 report，就是这个 skill 以它唯一懂得的方式告诉你：它什么都没找到。
+很少，而你进去之前就该知道这一点。这个 skill 是被构建来输出 findings 的，所以这种框架会把它推向产出候选项，而不是得出"没有什么不对"的结论。强度徽章就是防线——一份所有条目都是 `Speculative` 的候选清单，就是这个 skill 以它唯一懂得的方式告诉你：它什么都没找到。
 
 **它在 Pi 中能工作吗？**
 
@@ -91,8 +87,8 @@ skill 没有随附一个好答案。反复出现的请求是想要一份 `TYPESC
 
 - 候选项用你领域的概念命名，而不是发明出来的类名——是"the Order intake module"，而不是"the FooBarHandler"。
 - 候选项聚集在你最近编辑过的文件里，而不是 repo 中沉睡的角落。
-- 运行期间没有任何代码变更。唯一的新文件是你临时目录里的 HTML report。
-- 它在 report 之后停下来，问你想要哪个候选项，而不是自行继续。
+- 运行期间没有任何代码变更，也不生成任何文件。
+- 它展示完候选项之后停下来，问你想要哪个候选项，而不是自行继续。
 - 每张卡片都把回报解释为 locality 或 leverage，并说出哪些测试会变得更简单——而不是只说"这个更干净"。
 - 以持久理由否决一个候选项，会换来一次记录 ADR 的提议，这样下一次运行就不会再次建议它。
 
