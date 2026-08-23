@@ -42,9 +42,9 @@ pi install git:github.com/vinvcn/mattpocock-skills-zh-CN
 
 安装后：
 
-- 全部 skills 以 `/skill:<名称>` 形式可用（如 `/skill:tdd`）。
+- 全部 skills 以 `/skill:<名称>` 形式可用（如 `/skill:tdd`），并自动注册无前缀短命令（如 `/tdd`、`/code-review`、`/ask-matt`），转发到对应 skill；每条命令的描述取自对应 `SKILL.md` 的介绍。仅注册本包 skills，不干扰其他已装包的 skills；短名与已有命令重复时自动跳过，避免冲突。
 - `/ask-matt <情境>` 命令是 **ask-matt 路由器引导**入口：根据当前情境推荐合适的 skill 或 flow。ask-matt 是 user-invoked skill（`disable-model-invocation: true`），不会进入模型上下文，因此引导完全可选、按需触发。
-- 想禁用 `/ask-matt` 引导：用 `pi config`（或 settings.json 包过滤）关闭本扩展；单独 skills 也可在 `pi config` 中开关。
+- 想禁用短命令：用 `pi config`（或 settings.json 包过滤）关闭本扩展；单独 skills 也可在 `pi config` 中开关。
 
 [![skills.sh](https://skills.sh/b/vinvcn/mattpocock-skills-zh-CN)](https://skills.sh/vinvcn/mattpocock-skills-zh-CN)
 
