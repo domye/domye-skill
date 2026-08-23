@@ -30,6 +30,22 @@ bash scripts/link-skills.sh
 
 这会将所有 skills 软链接到 `~/.pi/agent/skills/`，Pi 启动时自动发现。
 
+## Pi 包安装
+
+本仓库可直接作为 [Pi 包](https://pi.dev/docs/latest/packages) 安装：
+
+```bash
+pi install git:github.com/vinvcn/mattpocock-skills-zh-CN
+```
+
+或本地安装：`pi install /path/to/repo`（仓库根目录的 `package.json` 声明了 `pi` manifest，指向 `skills/` 与 `extensions/`）。
+
+安装后：
+
+- 全部 skills 以 `/skill:<名称>` 形式可用（如 `/skill:tdd`）。
+- `/ask-matt <情境>` 命令是 **ask-matt 路由器引导**入口：根据当前情境推荐合适的 skill 或 flow。ask-matt 是 user-invoked skill（`disable-model-invocation: true`），不会进入模型上下文，因此引导完全可选、按需触发。
+- 想禁用 `/ask-matt` 引导：用 `pi config`（或 settings.json 包过滤）关闭本扩展；单独 skills 也可在 `pi config` 中开关。
+
 [![skills.sh](https://skills.sh/b/vinvcn/mattpocock-skills-zh-CN)](https://skills.sh/vinvcn/mattpocock-skills-zh-CN)
 
 <p>

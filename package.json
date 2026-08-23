@@ -1,0 +1,20 @@
+{
+  "name": "mattpocock-skills-zh-cn",
+  "version": "1.0.0",
+  "description": "Matt Pocock Agent Skills 简体中文版，打包为 Pi 包：全部 skills + ask-matt 路由器引导扩展",
+  "keywords": [
+    "pi-package",
+    "skills",
+    "ask-matt",
+    "matt-pocock",
+    "zh-cn"
+  ],
+  "license": "MIT",
+  "pi": {
+    "skills": ["./skills"],
+    "extensions": ["./extensions"]
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*"
+  }
+}
