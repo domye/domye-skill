@@ -1,12 +1,12 @@
-# Design It Twice
+# 设计两次
 
 当用户想为某个 deepening candidate 探索 alternative interfaces 时，使用这个并行 sub-agent pattern。它基于 Ousterhout 的 "Design It Twice"：你的第一个想法很可能不是最好的。
 
 使用 [SKILL.md](SKILL.md) 中的词汇：**module**、**interface**、**seam**、**adapter**、**leverage**。
 
-## Process
+## 流程
 
-### 1. Frame the problem space
+### 1. 框定问题空间
 
 在启动 sub-agents 之前，先为选中的 candidate 写一段面向用户的问题空间说明：
 
@@ -16,7 +16,7 @@
 
 把这些展示给用户，然后立即进入 Step 2。用户可以一边读一边思考，sub-agents 同时并行工作。
 
-### 2. Spawn sub-agents
+### 2. 启动 sub-agents
 
 并行启动 3+ 个 sub-agents。每个都必须为 deepened module 产出一个 **radically different** interface。
 
@@ -27,7 +27,7 @@
 - Agent 3: "Optimise for the most common caller - make the default case trivial."
 - Agent 4（如适用）: "Design around ports & adapters for cross-seam dependencies."
 
-Brief 中同时包含 [SKILL.md](SKILL.md) vocabulary 和 `CONTEXT.md` vocabulary，确保每个 sub-agent 的命名同时符合 architecture language 和项目 domain language。
+Brief 中同时包含 [SKILL.md](SKILL.md) vocabulary 和 `GLOSSARY.md` vocabulary，确保每个 sub-agent 的命名同时符合 architecture language 和项目 domain language。
 
 每个 sub-agent 输出：
 
@@ -37,7 +37,7 @@ Brief 中同时包含 [SKILL.md](SKILL.md) vocabulary 和 `CONTEXT.md` vocabular
 4. Dependency strategy 和 adapters（见 [DEEPENING.md](DEEPENING.md)）
 5. Trade-offs：leverage 哪里高，哪里薄
 
-### 3. Present and compare
+### 3. 展示并比较
 
 顺序展示各个 designs，让用户能逐个吸收，然后用 prose 比较。按 **depth**（interface 上的 leverage）、**locality**（change 集中在哪里）和 **seam placement** 对比。
 
